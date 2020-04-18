@@ -7,7 +7,7 @@ A boilerplate for your vanillajs applications
 1. Download the boilerplate
 1. Run `npm install`
 1. To develop locally run `npm run dev`
-1. To build your project for a production site, run `npm run build`
+1. To build your project for a production site, run `npm run build`. The bundle will be located in the `dist` folder.
 1. The end
 
 ## How does this boilerplate help you?
@@ -38,6 +38,8 @@ After I built my landing page I cleand up my setup a bit and created this boiler
 This library is for small simple sites. It uses only one webpack config. On more complex sites you may need two.
 
 SASS is not supported out of the box. The idea was to use vanilla js and also just plain css.
+
+If you want to use SASS you just need to install the [SASS loader](https://webpack.js.org/loaders/sass-loader/).
 
 ## How do I update the favicon setup to add my own icon?
 
