@@ -16,8 +16,8 @@ This boilerplate comes with webpack pre-configured to do the following:
 
 -   Run a local dev server
 -   Build a production bundle for deploying an optimized build to a live server
--   Copies your images to the dev and production bundle
--   Copies your favicon files and site.webmanifest to the bundle
+-   Copies your images (png, jpg, svg, gif) to your dev and production bundles
+-   Copies your favicon files and site.webmanifest to your bundles
 -   Allows you to use modern Javascript and transpiles to es5 using Babel
 
 In addition to what webpack can do for you, I also included:
