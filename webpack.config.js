@@ -66,7 +66,8 @@ const config = {
             [
                 { from: './src/site.webmanifest', to: './', flatten: true },
                 { from: './src/*.png', to: './', flatten: true },
-                { from: './src/favicon.ico', to: './', flatten: true }
+                { from: './src/favicon.ico', to: './', flatten: true },
+                { from: './src/robots.txt', to: './', flatten: true }
             ],
             {
                 copyUnmodified: true
