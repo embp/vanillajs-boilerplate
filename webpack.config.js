@@ -4,10 +4,13 @@ const CopyPlugin = require('copy-webpack-plugin');
 require('@babel/register');
 
 const config = {
-    entry: ['@babel/polyfill', './src/index.js'],
+    entry: {
+        index: ['@babel/polyfill', './src/index.js'],
+        privacyPolicy: ['@babel/polyfill', './src/privacy-policy.js']
+    },
     output: {
         path: __dirname + '/dist',
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
     module: {
         rules: [
@@ -36,13 +39,15 @@ const config = {
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
-                use: [{
-                  loader: 'file-loader',
-                  options: {
-                    // Allows url image references in css to work
-                    esModule: false,
-                  },
-                }]
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            // Allows url image references in css to work
+                            esModule: false
+                        }
+                    }
+                ]
             },
             {
                 test: /\.webmanifest$/,
@@ -60,7 +65,15 @@ const config = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html',
-            file: './index.html'
+            filename: 'index.html',
+            inject: true,
+            chunks: ['index']
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/privacy-policy.html',
+            filename: 'privacy-policy.html',
+            inject: true,
+            chunks: ['privacyPolicy']
         }),
         new CopyPlugin(
             [
