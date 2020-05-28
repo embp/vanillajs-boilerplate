@@ -6,7 +6,7 @@ require('@babel/register');
 const config = {
     entry: {
         index: ['@babel/polyfill', './src/index.js'],
-        privacyPolicy: ['@babel/polyfill', './src/privacy-policy.js']
+        privacyPolicy: ['@babel/polyfill', './src/privacy-policy/index.js']
     },
     output: {
         path: __dirname + '/dist',
@@ -70,8 +70,8 @@ const config = {
             chunks: ['index']
         }),
         new HtmlWebpackPlugin({
-            template: './src/privacy-policy.html',
-            filename: 'privacy-policy.html',
+            template: './src/privacy-policy/index.html',
+            filename: 'privacy-policy/index.html',
             inject: true,
             chunks: ['privacyPolicy']
         }),
