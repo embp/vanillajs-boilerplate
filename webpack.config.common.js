@@ -1,23 +1,30 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-require('@babel/register');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack');
 
 const config = {
     entry: {
-        index: ['@babel/polyfill', './src/index.js'],
-        privacyPolicy: ['@babel/polyfill', './src/privacy-policy/index.js']
+        index: ['./src/index.js'],
+        privacyPolicy: ['./src/privacy-policy/index.js']
     },
     output: {
-        path: __dirname + '/dist',
-        filename: '[name].js'
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].[contenthash].js'
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: ['babel-loader']
+                use: {
+                    loader:'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                        plugins: ['@babel/plugin-transform-runtime']
+                    }
+                }
             },
             {
                 test: /\.css$/,
@@ -63,6 +70,7 @@ const config = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './src/index.html',
             filename: 'index.html',
@@ -70,7 +78,7 @@ const config = {
             chunks: ['index']
         }),
         new HtmlWebpackPlugin({
-            template: './src/privacy-policy/index.html',
+            template: './src/privacy-policy/index.ejs',
             filename: 'privacy-policy/index.html',
             inject: true,
             chunks: ['privacyPolicy']
@@ -85,31 +93,35 @@ const config = {
             {
                 copyUnmodified: true
             }
-        )
+        ),
+        // Make sure that the plugin is after any plugins that add images, example `CopyWebpackPlugin`
+        new ImageminPlugin({
+            bail: false, // Ignore errors on corrupted images
+            cache: true,
+            imageminOptions: {
+            // Lossless optimization with custom option
+            // Feel free to experiment with options for better result for you
+            plugins: [
+                ["gifsicle", { interlaced: true }],
+                ["jpegtran", { progressive: true }],
+                ["optipng", { optimizationLevel: 5 }],
+                [
+                "svgo",
+                {
+                    plugins: [
+                    {
+                        removeViewBox: false
+                    }
+                    ]
+                }
+                ]
+            ]
+            }
+        }),
     ],
     resolve: {
         modules: [path.resolve('./src'), path.resolve('./node_modules')]
-    },
-    devServer: {
-        contentBase: __dirname + '/public',
-        compress: true,
-        port: 3000,
-        open: true,
-        stats: {
-            assets: false,
-            children: false,
-            chunks: false,
-            chunkModules: false,
-            colors: true,
-            entrypoints: false,
-            hash: false,
-            modules: false,
-            timings: false,
-            version: false
-        }
-    },
-    watch: false,
-    devtool: 'source-map'
+    }
 };
 
 module.exports = config;
