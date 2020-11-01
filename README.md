@@ -16,7 +16,7 @@ This boilerplate comes with webpack pre-configured to do the following:
 
 -   Run a local dev server
 -   Build a production bundle for deploying an optimized build to a live server
--   Copies your images (png, jpg, svg, gif) to your dev and production bundles
+-   Optimizes and copies your images (png, jpg, svg, gif) to your dev and production bundles
 -   Copies your favicon files and site.webmanifest to your bundles
 -   Allows you to use modern Javascript and transpiles to es5 using Babel
 
@@ -35,7 +35,7 @@ After I built my landing page I cleand up my setup a bit and created this boiler
 
 ## What does this boilerplate not do for you?
 
-This library is for small simple sites. It uses only one webpack config. On more complex sites you may need two.
+This boilerplate was built with small sites in mind, like landing pages or 2-3 page website.
 
 SASS is not supported out of the box. The idea was to use vanilla js and also just plain css.
 
@@ -43,4 +43,4 @@ If you want to use SASS you just need to install the [SASS loader](https://webpa
 
 ## How do I update the favicon setup to add my own icon?
 
-The easiest thing you can do is go to a site like [favicon.io](https://favicon.io/), drag a large image you want to use as an icon, and download the generated assets. Then just drag them into your `src` file and replace all the files. That's all you need to do.
+Go to [favicon.io](https://favicon.io/), drag a large image you want to use as an icon, and download the generated assets. Then just drag them into your `src` file and replace all the files.
